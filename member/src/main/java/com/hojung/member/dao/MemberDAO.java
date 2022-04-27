@@ -24,10 +24,9 @@ public class MemberDAO {
 			ps.setString(1, vo.getMemId());
 			ps.setString(2, vo.getMemPwd());
 			ps.setString(3, vo.getMemName());
-			//ps.setString(4, vo.getRegDate());
 			return ps.executeUpdate();
 		}catch (SQLException e) {
-			
+			e.printStackTrace();
 		}finally {
 			DBConCloseUtil.close(con, ps, null);//오버로딩 하기 싫으면 null
 		}
@@ -104,16 +103,12 @@ public class MemberDAO {
 			con = DBConCloseUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, memId);
-			
-			
 			rs = ps.executeQuery();
-			//List = new ArrayList<>();
 			while (rs.next()) {
 				MemberVO vo = new MemberVO();
 				vo.setMemId(rs.getString("memId"));
 				vo.setMemName(rs.getString("memName"));
 				vo.setMemPwd(rs.getString("memPwd"));
-				//vo.setRegDate(rs.getString("regDate"));
 				return vo;
 			}
 		}catch (SQLException e) {
@@ -143,7 +138,6 @@ public class MemberDAO {
 				vo.setMemId(rs.getString("memId"));
 				vo.setMemName(rs.getString("memName"));
 				vo.setMemPwd(rs.getString("memPwd"));
-				//vo.setRegDate(rs.getString("regDate"));
 				list.add(vo);
 			}
 			
